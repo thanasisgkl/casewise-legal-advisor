@@ -11,11 +11,18 @@ export type LegalReference = {
   description: string;
 };
 
+export type CaseOutcome = {
+  scenario: string;
+  probability: number;
+  reasoning: string;
+};
+
 export type LegalAdvice = {
   summary: string;
   details: string;
   recommendations: string[];
   references: LegalReference[];
+  outcomes: CaseOutcome[];
 };
 
 interface LegalResultProps {
@@ -25,6 +32,20 @@ interface LegalResultProps {
 }
 
 const LegalResult = ({ advice, onSaveCase, isSaving }: LegalResultProps) => {
+  // Helper function to get color based on probability
+  const getProbabilityColor = (probability: number): string => {
+    if (probability >= 70) return "text-green-700";
+    if (probability >= 40) return "text-amber-700";
+    return "text-red-700";
+  };
+
+  // Helper function to get background color based on probability
+  const getProbabilityBgColor = (probability: number): string => {
+    if (probability >= 70) return "bg-green-50";
+    if (probability >= 40) return "bg-amber-50";
+    return "bg-red-50";
+  };
+
   return (
     <div className="space-y-6">
       <Card>
@@ -41,6 +62,33 @@ const LegalResult = ({ advice, onSaveCase, isSaving }: LegalResultProps) => {
           </div>
         </CardContent>
       </Card>
+
+      {advice.outcomes && advice.outcomes.length > 0 && (
+        <Card>
+          <CardHeader>
+            <CardTitle>Πιθανότητες Έκβασης</CardTitle>
+            <CardDescription>Αξιολόγηση πιθανοτήτων για διαφορετικά σενάρια της υπόθεσής σας</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <div className="space-y-4">
+              {advice.outcomes.map((outcome, index) => (
+                <div 
+                  key={index} 
+                  className={`p-4 rounded-md border ${getProbabilityBgColor(outcome.probability)}`}
+                >
+                  <div className="flex justify-between items-center mb-2">
+                    <h4 className="font-medium">{outcome.scenario}</h4>
+                    <div className={`font-bold text-lg ${getProbabilityColor(outcome.probability)}`}>
+                      {outcome.probability}%
+                    </div>
+                  </div>
+                  <p className="text-gray-700">{outcome.reasoning}</p>
+                </div>
+              ))}
+            </div>
+          </CardContent>
+        </Card>
+      )}
 
       <Card>
         <CardHeader>

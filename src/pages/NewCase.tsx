@@ -10,7 +10,7 @@ import { useCaseSubmit } from "@/hooks/useCaseSubmit";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Upload, Camera } from "lucide-react";
+import { Upload, Camera, FilePlus } from "lucide-react";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { toast } from "@/hooks/use-toast";
 
@@ -19,6 +19,7 @@ const NewCase = () => {
   const [selectedCategory, setSelectedCategory] = useState("");
   const [currentTab, setCurrentTab] = useState("description");
   const [documentAttached, setDocumentAttached] = useState(false);
+  const [documentType, setDocumentType] = useState<"upload" | "scan" | null>(null);
   const { isSubmitting, result, isSaving, submitCase, saveCase } = useCaseSubmit();
   const navigate = useNavigate();
   const isMobile = useIsMobile();
@@ -36,9 +37,14 @@ const NewCase = () => {
   const handleDocumentUpload = async () => {
     try {
       // Here we would integrate with expo-document-picker
-      // Since we're in a web context, we'll simulate the upload
+      // For React Native, we would use:
+      // const result = await DocumentPicker.getDocumentAsync({ type: '*/*', copyToCacheDirectory: true });
+      // if (result.type === 'success') { ... }
+      
+      // Simulating the upload for now
       setTimeout(() => {
         setDocumentAttached(true);
+        setDocumentType("upload");
         toast({
           title: "Έγγραφο Επιτυχώς Προσαρτήθηκε",
           description: "Το έγγραφό σας έχει προσαρτηθεί στην υπόθεση."
@@ -55,13 +61,25 @@ const NewCase = () => {
 
   const handleScanDocument = async () => {
     try {
-      // Here we would integrate with expo-image-picker
-      // Since we're in a web context, we'll simulate the scanning
+      // Here we would integrate with expo-image-picker for React Native:
+      // const { status } = await ImagePicker.requestCameraPermissionsAsync();
+      // if (status !== 'granted') {
+      //   throw new Error('Camera permission not granted');
+      // }
+      // const result = await ImagePicker.launchCameraAsync({
+      //   mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      //   allowsEditing: true,
+      //   quality: 0.8,
+      // });
+      // if (!result.canceled) { ... }
+      
+      // Simulating the scanning for now
       setTimeout(() => {
         setDocumentAttached(true);
+        setDocumentType("scan");
         toast({
           title: "Έγγραφο Επιτυχώς Σαρώθηκε",
-          description: "Το έγγραφό σας έχει προσαρτηθεί στην υπόθεση."
+          description: "Το έγγραφό σας έχει σαρωθεί και προσαρτηθεί στην υπόθεση."
         });
       }, 1000);
     } catch (error) {
@@ -132,7 +150,7 @@ const NewCase = () => {
                   </CardDescription>
                 </CardHeader>
                 <CardContent>
-                  <div className="flex flex-col sm:flex-row gap-4">
+                  <div className={`flex ${isMobile ? "flex-col" : "flex-row"} gap-4`}>
                     <Button 
                       onClick={handleDocumentUpload} 
                       variant="outline" 
@@ -142,14 +160,23 @@ const NewCase = () => {
                       Μεταφόρτωση Εγγράφου
                     </Button>
                     
-                    {isMobile && (
+                    <Button 
+                      onClick={handleScanDocument} 
+                      variant="outline" 
+                      className="flex-1"
+                    >
+                      <Camera className="mr-2 h-4 w-4" />
+                      Σάρωση με Κάμερα
+                    </Button>
+                    
+                    {documentAttached && documentType === "upload" && (
                       <Button 
                         onClick={handleScanDocument} 
                         variant="outline" 
                         className="flex-1"
                       >
-                        <Camera className="mr-2 h-4 w-4" />
-                        Σάρωση Εγγράφου
+                        <FilePlus className="mr-2 h-4 w-4" />
+                        Προσθήκη και Άλλου Εγγράφου
                       </Button>
                     )}
                   </div>
@@ -157,7 +184,11 @@ const NewCase = () => {
                   {documentAttached && (
                     <div className="mt-4 p-3 bg-blue-50 text-blue-700 rounded-md border border-blue-200">
                       <p className="text-sm flex items-center">
-                        <span className="font-medium">Έγγραφο προσαρτήθηκε</span>
+                        <span className="font-medium">
+                          {documentType === "scan" 
+                            ? "Σαρωμένο έγγραφο προσαρτήθηκε" 
+                            : "Έγγραφο προσαρτήθηκε"}
+                        </span>
                       </p>
                     </div>
                   )}

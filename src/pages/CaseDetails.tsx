@@ -10,6 +10,25 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { historyCases } from "@/data/mockData";
 import { mockAnalysis } from "@/data/mockData";
 
+// Add mock outcomes data for case details
+const mockOutcomes = [
+  {
+    scenario: "Θετική έκβαση της υπόθεσης",
+    probability: 75,
+    reasoning: "Με βάση την νομολογία και τα στοιχεία που παρουσιάστηκαν, υπάρχει υψηλή πιθανότητα ευνοϊκής απόφασης λόγω των σαφών προηγούμενων περιπτώσεων."
+  },
+  {
+    scenario: "Μερική αποδοχή των αιτημάτων",
+    probability: 60,
+    reasoning: "Το δικαστήριο ενδέχεται να αποδεχθεί μέρος των αιτημάτων σας, ειδικά όσον αφορά τα κύρια σημεία της διαφοράς, αλλά πιθανόν να απορρίψει δευτερεύοντα ζητήματα."
+  },
+  {
+    scenario: "Αρνητική έκβαση της υπόθεσης",
+    probability: 20,
+    reasoning: "Υπάρχει μικρή πιθανότητα αρνητικής έκβασης, κυρίως εάν το δικαστήριο δώσει μεγαλύτερη βαρύτητα στις πρόσφατες νομοθετικές αλλαγές."
+  }
+];
+
 const CaseDetails = () => {
   const { id } = useParams();
   const [caseData, setCaseData] = useState<any | null>(null);
@@ -20,10 +39,27 @@ const CaseDetails = () => {
     if (foundCase) {
       setCaseData({
         ...foundCase,
-        analysis: mockAnalysis
+        analysis: {
+          ...mockAnalysis,
+          outcomes: mockOutcomes
+        }
       });
     }
   }, [id]);
+  
+  // Helper function to get color based on probability
+  const getProbabilityColor = (probability: number): string => {
+    if (probability >= 70) return "text-green-700";
+    if (probability >= 40) return "text-amber-700";
+    return "text-red-700";
+  };
+
+  // Helper function to get background color based on probability
+  const getProbabilityBgColor = (probability: number): string => {
+    if (probability >= 70) return "bg-green-50";
+    if (probability >= 40) return "bg-amber-50";
+    return "bg-red-50";
+  };
   
   if (!caseData) {
     return (
@@ -95,6 +131,31 @@ const CaseDetails = () => {
               <div className="space-y-4">
                 <h3 className="font-medium">Αναλυτικές Πληροφορίες</h3>
                 <p className="text-gray-700">{caseData.analysis.details}</p>
+              </div>
+            </CardContent>
+          </Card>
+
+          <Card>
+            <CardHeader>
+              <CardTitle>Πιθανότητες Έκβασης</CardTitle>
+              <CardDescription>Αξιολόγηση πιθανοτήτων για διαφορετικά σενάρια της υπόθεσής σας</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className="space-y-4">
+                {caseData.analysis.outcomes?.map((outcome: any, index: number) => (
+                  <div 
+                    key={index} 
+                    className={`p-4 rounded-md border ${getProbabilityBgColor(outcome.probability)}`}
+                  >
+                    <div className="flex justify-between items-center mb-2">
+                      <h4 className="font-medium">{outcome.scenario}</h4>
+                      <div className={`font-bold text-lg ${getProbabilityColor(outcome.probability)}`}>
+                        {outcome.probability}%
+                      </div>
+                    </div>
+                    <p className="text-gray-700">{outcome.reasoning}</p>
+                  </div>
+                ))}
               </div>
             </CardContent>
           </Card>
