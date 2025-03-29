@@ -1,0 +1,106 @@
+
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { ScrollArea } from "@/components/ui/scroll-area";
+import { Separator } from "@/components/ui/separator";
+import { Button } from "@/components/ui/button";
+import { BookOpen, FilePlus, FileText } from "lucide-react";
+
+export type LegalReference = {
+  id: string;
+  title: string;
+  description: string;
+};
+
+export type LegalAdvice = {
+  summary: string;
+  details: string;
+  recommendations: string[];
+  references: LegalReference[];
+};
+
+interface LegalResultProps {
+  advice: LegalAdvice;
+  onSaveCase: () => void;
+  isSaving: boolean;
+}
+
+const LegalResult = ({ advice, onSaveCase, isSaving }: LegalResultProps) => {
+  return (
+    <div className="space-y-6">
+      <Card>
+        <CardHeader>
+          <CardTitle>Περίληψη Ανάλυσης</CardTitle>
+          <CardDescription>Βασικά σημεία της νομικής ανάλυσης της υπόθεσής σας</CardDescription>
+        </CardHeader>
+        <CardContent>
+          <p className="text-lg font-medium">{advice.summary}</p>
+          <Separator className="my-4" />
+          <div className="space-y-4">
+            <h3 className="font-medium">Αναλυτικές Πληροφορίες</h3>
+            <p className="text-gray-700">{advice.details}</p>
+          </div>
+        </CardContent>
+      </Card>
+
+      <Card>
+        <CardHeader>
+          <CardTitle>Προτεινόμενες Ενέργειες</CardTitle>
+          <CardDescription>Συστάσεις για τα επόμενα βήματα</CardDescription>
+        </CardHeader>
+        <CardContent>
+          <ul className="space-y-2">
+            {advice.recommendations.map((recommendation, index) => (
+              <li key={index} className="flex items-start gap-3">
+                <div className="mt-1 h-5 w-5 rounded-full bg-legal-navy/10 text-legal-navy flex items-center justify-center flex-shrink-0">
+                  {index + 1}
+                </div>
+                <span>{recommendation}</span>
+              </li>
+            ))}
+          </ul>
+        </CardContent>
+      </Card>
+
+      <Card>
+        <CardHeader>
+          <CardTitle>Σχετικές Νομικές Αναφορές</CardTitle>
+          <CardDescription>Άρθρα και νομολογία που σχετίζονται με την υπόθεσή σας</CardDescription>
+        </CardHeader>
+        <CardContent>
+          <ScrollArea className="h-[200px] rounded-md border p-4">
+            <div className="space-y-4">
+              {advice.references.map((reference) => (
+                <div key={reference.id} className="space-y-2">
+                  <div className="flex items-center gap-2">
+                    <FileText className="h-4 w-4 text-legal-navy" />
+                    <h4 className="font-medium">{reference.title}</h4>
+                  </div>
+                  <p className="text-sm text-gray-600">{reference.description}</p>
+                </div>
+              ))}
+            </div>
+          </ScrollArea>
+        </CardContent>
+      </Card>
+
+      <div className="flex flex-col sm:flex-row gap-4">
+        <Button
+          variant="default"
+          onClick={onSaveCase}
+          disabled={isSaving}
+          className="flex-1"
+        >
+          <FilePlus className="mr-2 h-4 w-4" />
+          {isSaving ? "Αποθήκευση..." : "Αποθήκευση Υπόθεσης"}
+        </Button>
+        
+        <Button variant="outline" className="flex-1">
+          <BookOpen className="mr-2 h-4 w-4" />
+          Περισσότερες Πληροφορίες
+        </Button>
+      </div>
+    </div>
+  );
+};
+
+export default LegalResult;
