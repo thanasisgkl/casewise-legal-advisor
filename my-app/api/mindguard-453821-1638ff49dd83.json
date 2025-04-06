@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "mindguard-453821",
+  "private_key_id": "1638ff49dd830e9c58e3690abb5e86857f849850",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvwIBADANBgkqhkiG9w0BAQEFAASCBKkwggSlAgEAAoIBAQCpR3HVhSv+ZrSN\n5mtA7SA0Kf+oxMq8OC6i1X5t2KE6DN3aFRl4fTRHJyqDQjJyGAZxv+y3gFlNGAOW\n5Z7yK/prKnPOA30Ol5+Du2Sj3j3EVHsH0dBnJSJyUzKuYLDh3evL2aNtBmsMGWmI\nEFyyoL3OAMHMFJYSSP0IF60YLpsgGARyarAprrwGoju8AiQDeOIRFKsRmAYUSU5W\n8oPvuw7R4hXKCC4jbZvlHnlkzsxuvk3Ofxpi9CgHPHjyvfjPs91nR6/TQfP/p2M6\neSOXGQhn7yHxva/S9zhwGnv4Ulh5rWXDBTRIWmkIOmSO2pQj7ISkwvoreO2alFTU\nDPs4cSWdAgMBAAECggEAEtGaPlxIdIcK9gaCcGycKqhrn2HHTw7o4lndLQ2K+Pbi\nuAKl+v7iT7GzOHXkwUnZ943YXVsTsm4jwgQDfFU2yPCmgKXjInrpNR4hVVVY5Qlm\nRwuEgV7/uhl1Ni0SJP4En3wxvqZawrTVhlaZU5Nqnmr3oH4+Y8iA9sQZDmnp/XJ3\nzJuU0ihw8mkCYFvYM32L3i6i28PwWpn2Pr2gsUXWiYqbPjcX7E0DWgHWBGcaYMXq\n5gwXJA5oi3F5oreP1g2zJ+v/6WUekG2Lg0AoGFs0DTC+B6kthdqe5aZduLxJzMcr\nKutx4NQkp4EFzOW+f1VMPgToI1Nn0iynqv8jFUCgKQKBgQDR0hEqB0kBZC//yBev\n2IVqrMDxKDnwdNLYCLIpK9210QIWf5P5fJbpVZmi/4wdRCVcsNmBONHyWAtLvROU\n0IGFQ2xN6qIGZzwKKPakJ1p5316jCxL4I7URXlD2NAVYJbjQTA14yNYrRG5BuaKF\nvjuvxdqJOcHSCg3StHS+AhXV2QKBgQDOiSVW0FoT0VRUzKIzd/i7rnvVceiXNQD8\nl6y++sPoA/0E7YWnuHiPVcF3NaeAD4pPXQ1Xu/NnT9jQFvCndLzbKXby7pIRZf5o\nUPhcnX27aoDMnC+/tBovJDmURlw/4TvjPw+G/mMUzHGV/RtV2sQTQRfjZ2NIcwmX\nvHZWetKfZQKBgQCPyQQIKCvoby7Ret54m8l5+97QpD9oP7aJYxQsUKpDwXJL1qui\nCbYlOorpf3QWTi/IYEz9V+HP0HQVOAImNei8WSLsFkFoX/BuCfpTLcC7yc3Br4IV\nV+rqdxbGUYnkCR2oaKXGwuK5jdB86+iq/F1MrCqBZXokJM2qOg3Sc/1gqQKBgQCc\nAwsajd5NNAWw3Lb1i/1uwDm4nQfmGFq7c1NBHCmZ/FFHRKh+biFbnJq8kuIJITQI\nCTFIAai2dKFBZuK4i70RDDxW+5GI5PONFwTU6P6N8MCETsLe24wf6gw4jgGnG1ti\nqELxZP2xO1Hdy8i3TL5qEPSbiYB8vLEVVn5JixPI5QKBgQCAZFYfRz/wH7LR9MJR\nx5jNhRNaMg0YUC7sUKbfxCnbB0QJ4VN43nG9ikanV3oL9eU/Y8GFrFu7RSs5WXTA\n5H7FXK28M674eC89qNdYjotVWCNu4meb4CQSupxNkLmCPzQgBEvk1KNv64zplisj\n/rWfAJdayslQJTSmh0gJeTbeow==\n-----END PRIVATE KEY-----\n",
+  "client_email": "casewise-app@mindguard-453821.iam.gserviceaccount.com",
+  "client_id": "111699286227914478967",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/casewise-app%40mindguard-453821.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}
