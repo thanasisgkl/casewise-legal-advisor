@@ -1,29 +1,21 @@
-import { useTheme } from "next-themes"
-import { Toaster as Sonner } from "sonner"
+import Toast from 'react-native-toast-message';
 
-type ToasterProps = React.ComponentProps<typeof Sonner>
+type ToasterProps = {
+  type?: 'success' | 'error' | 'info';
+  text1?: string;
+  text2?: string;
+  position?: 'top' | 'bottom';
+  visibilityTime?: number;
+  autoHide?: boolean;
+  topOffset?: number;
+  bottomOffset?: number;
+  onShow?: () => void;
+  onHide?: () => void;
+  onPress?: () => void;
+};
 
-const Toaster = ({ ...props }: ToasterProps) => {
-  const { theme = "system" } = useTheme()
+const Toaster = () => {
+  return null; // Το Toast εμφανίζεται μέσω της Toast.show()
+};
 
-  return (
-    <Sonner
-      theme={theme as ToasterProps["theme"]}
-      className="toaster group"
-      toastOptions={{
-        classNames: {
-          toast:
-            "group toast group-[.toaster]:bg-background group-[.toaster]:text-foreground group-[.toaster]:border-border group-[.toaster]:shadow-lg",
-          description: "group-[.toast]:text-muted-foreground",
-          actionButton:
-            "group-[.toast]:bg-primary group-[.toast]:text-primary-foreground",
-          cancelButton:
-            "group-[.toast]:bg-muted group-[.toast]:text-muted-foreground",
-        },
-      }}
-      {...props}
-    />
-  )
-}
-
-export { Toaster }
+export { Toaster };

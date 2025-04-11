@@ -1,8 +1,73 @@
-
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link } from "react-router-native";
 import { Menu, X, Scale, BookOpen, History, Home } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { StyleSheet, View, Text } from "react-native";
+
+const styles = StyleSheet.create({
+  header: {
+    position: 'absolute',
+    top: 0,
+    zIndex: 50,
+    backgroundColor: 'white',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.1,
+    shadowRadius: 2,
+  },
+  container: {
+    marginHorizontal: 'auto',
+    paddingHorizontal: 16,
+    paddingVertical: 12,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  logo: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 8,
+  },
+  logoText: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: '#1e3a8a',
+  },
+  nav: {
+    display: 'none',
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 24,
+  },
+  link: {
+    color: '#374151',
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 4,
+  },
+  mobileMenu: {
+    display: 'none',
+    backgroundColor: 'white',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+  },
+  mobileNav: {
+    flexDirection: 'column',
+    paddingHorizontal: 16,
+    paddingVertical: 8,
+  },
+  mobileLink: {
+    paddingVertical: 12,
+    paddingHorizontal: 16,
+    color: '#374151',
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 8,
+    borderRadius: 6,
+  },
+});
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -12,70 +77,70 @@ const Header = () => {
   };
 
   return (
-    <header className="sticky top-0 z-50 bg-white shadow-sm">
-      <div className="container mx-auto px-4 py-3 flex justify-between items-center">
-        <Link to="/" className="flex items-center space-x-2">
-          <Scale className="h-6 w-6 text-legal-navy" />
-          <span className="text-lg font-bold text-legal-navy">CaseWise</span>
+    <View style={styles.header}>
+      <View style={styles.container}>
+        <Link to="/" style={styles.logo}>
+          <Scale style={{ height: 24, width: 24, color: '#1e3a8a' }} />
+          <Text style={styles.logoText}>CaseWise</Text>
         </Link>
         
         {/* Mobile menu button */}
         <Button 
           variant="ghost" 
           size="icon" 
-          className="md:hidden" 
+          style={{ display: 'none' }}
           onClick={toggleMenu}
         >
           {isMenuOpen ? (
-            <X className="h-6 w-6" />
+            <X style={{ height: 24, width: 24 }} />
           ) : (
-            <Menu className="h-6 w-6" />
+            <Menu style={{ height: 24, width: 24 }} />
           )}
         </Button>
         
         {/* Desktop menu */}
-        <nav className="hidden md:flex items-center space-x-6">
-          <Link to="/" className="text-gray-700 hover:text-legal-navy transition-colors flex items-center gap-1">
-            <Home className="h-4 w-4" /> Αρχική
+        <View style={styles.nav}>
+          <Link to="/" style={styles.link}>
+            <Home style={{ height: 16, width: 16 }} /> Αρχική
           </Link>
-          <Link to="/new-case" className="text-gray-700 hover:text-legal-navy transition-colors flex items-center gap-1">
-            <BookOpen className="h-4 w-4" /> Νέα Υπόθεση
+          <Link to="/new-case" style={styles.link}>
+            <BookOpen style={{ height: 16, width: 16 }} /> Νέα Υπόθεση
           </Link>
-          <Link to="/history" className="text-gray-700 hover:text-legal-navy transition-colors flex items-center gap-1">
-            <History className="h-4 w-4" /> Ιστορικό
+          <Link to="/history" style={styles.link}>
+            <History style={{ height: 16, width: 16 }} /> Ιστορικό
           </Link>
-        </nav>
-      </div>
+        </View>
+      </View>
       
       {/* Mobile menu */}
       {isMenuOpen && (
-        <div className="md:hidden bg-white shadow-md animate-fade-in">
-          <nav className="flex flex-col px-4 py-2">
+        <View style={styles.mobileMenu}>
+          <View style={styles.mobileNav}>
             <Link 
               to="/" 
-              className="py-3 px-4 text-gray-700 hover:bg-gray-100 rounded-md flex items-center gap-2"
-              onClick={() => setIsMenuOpen(false)}
+              style={styles.mobileLink}
+              onPress={() => setIsMenuOpen(false)}
             >
-              <Home className="h-5 w-5" /> Αρχική
+              <Home style={{ height: 20, width: 20 }} /> Αρχική
             </Link>
             <Link 
               to="/new-case" 
-              className="py-3 px-4 text-gray-700 hover:bg-gray-100 rounded-md flex items-center gap-2"
-              onClick={() => setIsMenuOpen(false)}
+              style={styles.mobileLink}
+              onPress={() => setIsMenuOpen(false)}
             >
-              <BookOpen className="h-5 w-5" /> Νέα Υπόθεση
+              <BookOpen style={{ height: 20, width: 20 }} /> Νέα Υπόθεση
             </Link>
             <Link 
               to="/history" 
-              className="py-3 px-4 text-gray-700 hover:bg-gray-100 rounded-md flex items-center gap-2"
-              onClick={() => setIsMenuOpen(false)}
+              style={styles.mobileLink}
+              onPress={() => setIsMenuOpen(false)}
             >
-              <History className="h-5 w-5" /> Ιστορικό
+              <History style={{ height: 20, width: 20 }} /> Ιστορικό
             </Link>
-          </nav>
-        </div>
+          </View>
+        </View>
       )}
-    </header>
+    </View>
   );
 };
 
